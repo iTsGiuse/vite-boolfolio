@@ -10,19 +10,29 @@
         },
         data() {
             return {
-                projects: []
+                projects: [],
+                currentPage: 0,
+                prevPageUrl: null,
+                nextPageUrl: null,
             };
         },
         methods: {
-            getProjectFromApi() {
-                axios.get('http://127.0.0.1:8000/api/projects')
+            getProjectFromApi(pageNumber) {
+                axios.get('http://127.0.0.1:8000/api/projects', {
+                    params: {
+                        page: pageNumber
+                    }
+                })
                 .then((response) => {
-                    this.projects = response.data.results;
+                    this.projects = response.data.results.data;
+                    this.currentPage = response.data.results.current_page;
+                    this.prevPageUrl = response.data.results.prev_page_url;
+                    this.nextPageUrl = response.data.results.next_page_url;
                 });
             }
         },
         mounted() {
-            this.getProjectFromApi();
+            this.getProjectFromApi(this.currentPage);
         }
     }
 
@@ -30,7 +40,25 @@
 
 <template>
     <main>
-        <SingleProject v-for="project in projects" :key="project.id" :projectDetails="project"></SingleProject>
+        <div class="container">
+            <div class="row">
+                <div class="col-4 my-3" v-for="project in projects" :key="project.id">
+                    <SingleProject :projectDetails="project"></SingleProject>
+                </div>
+            </div>
+
+            <nav class="mt-3" aria-label="Page navigation example">
+                <ul class="pagination justify-content-between">
+                    <li v-if="prevPageUrl" class="page-item">
+                        <a class="page-link" @click="getProjectFromApi(currentPage - 1)">Previous</a>
+                    </li>
+                    <li v-if="nextPageUrl" class="page-item">
+                        <a class="page-link" @click="getProjectFromApi(currentPage + 1)">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+       
     </main>
 </template>
 
