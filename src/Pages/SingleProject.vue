@@ -23,17 +23,30 @@ export default {
 </script>
 
 <template>
-    <div class="container">
+    <div class="container my-5">
         <div v-if="projects">
-            <h1>{{ projects.name }}</h1>
-
-            <div v-if="projects.image">
-                <img :src="`http://127.0.0.1:8000/storage/${projects.image}`" :alt="projects.title">
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{projects.name}}</h5>
+                            <div v-if="projects.type">
+                                <p class="card-text" v-for="tipo in projects.type">{{tipo.name}}</p>
+                            </div>
+                            <div v-if="projects.technologies">
+                                <p class="card-text d-flex" v-for="technology in projects.technologies">{{technology.name}}</p>
+                            </div>
+                            <p class="card-title">{{projects.summary}}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
 
-            <p v-if="projects.summary">
-                {{ projects.summary }}
-            </p>
+        <div class="row my-5"> 
+            <div class="col-12 text-center">
+                <router-link :to="{ name: 'list-project'}"><button class="px-3 py-2">torna</button></router-link>
+            </div>
         </div>
     </div>
 </template>

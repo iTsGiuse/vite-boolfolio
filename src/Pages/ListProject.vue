@@ -47,7 +47,7 @@
                 </div>
             </div>
 
-            <nav class="mt-3" aria-label="Page navigation example">
+            <nav class="mt-3">
                 <ul class="pagination justify-content-between">
                     <li v-if="prevPageUrl" class="page-item">
                         <a class="page-link" @click="getProjectFromApi(currentPage - 1)">Previous</a>
