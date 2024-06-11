@@ -1,7 +1,7 @@
 <script>
 
     import axios from 'axios';
-    import SingleProject from './SingleProject.vue';
+    import SingleProject from '../components/SingleCard.vue';
 
     export default {
         name: 'ListProject',

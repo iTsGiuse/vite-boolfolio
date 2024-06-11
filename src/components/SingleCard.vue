@@ -22,6 +22,7 @@
 <template>
     <div class="card">
         <!--  <img src="..." class="card-img-top" alt="..."> -->
+        <router-link :to="{ name: 'single-project', params: {slug: projectDetails.slug } }"><i class="fa-solid fa-eye"></i></router-link>
         <div class="card-body">
             <h5 class="card-title">{{projectDetails.name}}</h5>
             <p class="card-text" v-for="tipo in projectDetails.type">{{tipo.name}}</p>
@@ -32,5 +33,14 @@
 </template>
 
 <style scoped lang="scss">
+    .card{
+        position: relative;
 
+        i{
+            position: absolute;
+            top: 10px;
+            right: 5px;
+            color: blue;
+        }
+    }
 </style>
